@@ -67,8 +67,8 @@ const MainScreen = () => {
 
       console.log("index1", i)
 
-      if (news[i]?.title.toLowerCase().includes(search.toLowerCase()) ||
-        news[i]?.description.toLowerCase().includes(search.toLowerCase())) {
+      if (news[i]?.title?.toLowerCase().includes(search.toLowerCase()) ||
+        news[i]?.description?.toLowerCase().includes(search.toLowerCase())) {
         console.log("index", i)
         console.log("true", news[i])
         let x = news[i]
@@ -108,7 +108,7 @@ const MainScreen = () => {
           style={{ ...styles?.smallIcon }}
         />
         <TextInput
-          style={{ color: '#333' }}
+          style={{ color: '#333' ,height:50}}
           placeholder={I18n.t('Search')}
           onChangeText={(val) => {
             if (val != '') {
@@ -214,12 +214,12 @@ const MainScreen = () => {
   return (
     <SafeAreaView
       style={{
-        padding: SIZES?.padding
+        padding: SIZES?.padding,
+        paddingTop:SIZES.padding*2
       }}>
       <View
         style={{
-          height: SIZES?.height,
-          paddingBottom: 50
+       ...styles?.MainView
         }}>
         {SearchView()}
         {newsView()}

@@ -59,20 +59,24 @@ const NewsDetails = () => {
       style={{
         padding: SIZES?.padding,
         ...styles?.container,
-        backgroundColor: colors.card
+        backgroundColor: colors.card,
       }}>
       <MainHeader
-        leftAction={() => { navigation.navigate('MainScreen') }}
+        leftAction={() => {  navigation.navigate('MainScreen'); }}
         img={icons?.back}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          width:'90%',
+          alignSelf:'center'
+        }}
       >
         <View style={{ ...styles.row_between }}>
           <Text
             style={{
               ...styles.bgtxt,
-              color: colors.text
+              color: colors.text,
             }}>
             {newsDetailsData?.source?.name}
           </Text>

@@ -29,7 +29,7 @@ export const COLORS = {
     darkgray: "#666",
 
     transparent: "transparent",
-    ornage:'#FD8469'
+    ornage: '#FD8469'
 };
 
 export const SIZES = {
@@ -58,16 +58,16 @@ export const SIZES = {
 };
 
 export const FONTS = {
-    largeTitle: { fontFamily: "Roboto-regular", fontSize: SIZES.largeTitle, lineHeight: 55,color:COLORS?.black  },
-    h1: { fontFamily: "Roboto-Black", fontSize: SIZES.h1, lineHeight: 36,color:COLORS?.black },
-    h2: { fontFamily: "Roboto-Bold", fontSize: SIZES.h2, lineHeight: 30,color:COLORS?.black  },
-    h3: { fontFamily: "Roboto-Bold", fontSize: SIZES.h3, lineHeight: 22,color:COLORS?.black  },
-    h4: { fontFamily: "Roboto-Bold", fontSize: SIZES.h4, lineHeight: 22,color:COLORS?.black  },
-    body1: { fontFamily: "Roboto-Regular", fontSize: SIZES.body1, lineHeight: 36,color:COLORS?.black  },
-    body2: { fontFamily: "Roboto-Regular", fontSize: SIZES.body2, lineHeight: 30,color:COLORS?.black  },
-    body3: { fontFamily: "Roboto-Regular", fontSize: SIZES.body3, lineHeight: 22,color:COLORS?.black  },
-    body4: { fontFamily: "Roboto-Regular", fontSize: SIZES.body4, lineHeight: 22,color:COLORS?.black  },
-    body5: { fontFamily: "Roboto-Regular", fontSize: SIZES.body5, lineHeight: 22,color:COLORS?.black  },
+    largeTitle: { fontSize: SIZES.largeTitle, lineHeight: 55, color: COLORS?.black },
+    h1: { fontSize: SIZES.h1, lineHeight: 36, color: COLORS?.black },
+    h2: { fontSize: SIZES.h2, lineHeight: 30, color: COLORS?.black },
+    h3: { fontSize: SIZES.h3, lineHeight: 22, color: COLORS?.black },
+    h4: { fontSize: SIZES.h4, lineHeight: 22, color: COLORS?.black },
+    body1: { fontSize: SIZES.body1, lineHeight: 36, color: COLORS?.black },
+    body2: { fontSize: SIZES.body2, lineHeight: 30, color: COLORS?.black },
+    body3: { fontSize: SIZES.body3, lineHeight: 22, color: COLORS?.black },
+    body4: { fontSize: SIZES.body4, lineHeight: 22, color: COLORS?.black },
+    body5: { fontSize: SIZES.body5, lineHeight: 22, color: COLORS?.black },
 };
 
 const appTheme = { COLORS, SIZES, FONTS };

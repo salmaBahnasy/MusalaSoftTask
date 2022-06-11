@@ -6,6 +6,12 @@ const styles = StyleSheet.create({
         ...FONTS?.h1,
         marginVertical: SIZES?.padding2
     },
+    MainView:{
+        height: SIZES?.height,
+        paddingBottom: 50,
+        // width:'90%',
+        // alignSelf:'center'
+    },
     searchRow: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -13,7 +19,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 40,
         backgroundColor: '#eee',
-        paddingHorizontal: SIZES?.padding
+        paddingHorizontal: SIZES?.padding,
+        marginBottom:SIZES.padding
     },
     smallIcon: {
         width: 20,

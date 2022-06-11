@@ -49,7 +49,8 @@ export default MainHeader;
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical:SIZES.padding
     },
     img: {
         width: 25,
