@@ -22,7 +22,6 @@ import { TextInput } from 'react-native-gesture-handler';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import EmptyView from '../UI/EmptyView';
 import MainHeader from '../UI/MainHeader';
-import { getNews, SearchFunction } from './Services/Services';
 import styles from './Styles';
 import moment from 'moment';
 import I18n from 'react-native-i18n';
