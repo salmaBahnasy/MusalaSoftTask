@@ -15,6 +15,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginVertical: SIZES?.padding2
     },
+    newsImageDetails:{
+        width: '100%',
+        alignSelf: 'center',
+        height: SIZES.height / 3,
+        backgroundColor: COLORS.lightGray,
+        borderRadius: SIZES?.radius
+    },
     bgtxt:{
         backgroundColor: COLORS?.ornage,
         padding: SIZES.base,

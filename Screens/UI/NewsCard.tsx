@@ -8,6 +8,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
+// ---------------------------------------------------------------
 import { COLORS, FONTS, icons, SIZES } from "../../constants";
 
 export type Props = {
@@ -28,15 +29,15 @@ const NewsCard: React.FC<Props> = ({ item, index }) => {
             }}
             key={`news-${index}`}
             style={{
-                marginVertical: 5,
-                padding: SIZES?.padding,
+                ...styles.card,
                 backgroundColor: colors?.card
             }}
         >
-            <View style={{
-                flexDirection: 'row',
-                backgroundColor: colors?.card
-            }}>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    backgroundColor: colors?.card
+                }}>
                 <View
                     style={{
                         flex: 2,
@@ -56,7 +57,8 @@ const NewsCard: React.FC<Props> = ({ item, index }) => {
                         ...FONTS?.body4,
                         color: colors.text
 
-                    }} numberOfLines={4}>
+                    }}
+                        numberOfLines={4}>
                         {item?.description}
                     </Text>
                 </View>
@@ -65,7 +67,7 @@ const NewsCard: React.FC<Props> = ({ item, index }) => {
                 >
                     <Image
                         // onError={() => { setValid(false) }}
-                        source={{ uri: item?.urlToImage }}
+                        source={item?.urlToImage ? { uri: item?.urlToImage } : { uri: item?.image }}
                         style={[{ ...styles?.newsImage }]}
                         defaultSource={icons?.placeholder}
                     />
@@ -81,23 +83,6 @@ const NewsCard: React.FC<Props> = ({ item, index }) => {
 export default NewsCard;
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginVertical: SIZES.padding
-    },
-    img: {
-        width: 25,
-        height: 25,
-        resizeMode: 'contain',
-        tintColor: COLORS.darkgray,
-        // backgroundColor:COLORS?.black
-    },
-    txt: {
-        ...FONTS?.h4,
-
-
-    },
     newsTitle: {
         ...FONTS?.h3,
         marginBottom: SIZES?.base,
@@ -108,5 +93,9 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 120,
         borderRadius: 10
+    },
+    card: {
+        marginVertical: 5,
+        padding: SIZES?.padding,
     }
 })

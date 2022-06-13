@@ -2,13 +2,13 @@
 
 import I18n from 'react-native-i18n';
 import en from './en';
-import bul from './bul';
+import de from './de';
 
 I18n.fallbacks = true;
 
 I18n.translations = {
   en,
-  bul
+  de
 };
 
 export default I18n;

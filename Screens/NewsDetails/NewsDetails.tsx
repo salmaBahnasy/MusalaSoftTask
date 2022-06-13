@@ -1,37 +1,25 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   Text,
-  FlatList,
-  TouchableOpacity,
   Image,
   View,
   ScrollView,
-  RefreshControl
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import { COLORS, FONTS, icons, SIZES } from '../../constants';
-import EmptyView from '../UI/EmptyView';
+import I18n from 'react-native-i18n';
+// --------------------------------------------------------------
+import { FONTS, icons, SIZES } from '../../constants';
 import MainHeader from '../UI/MainHeader';
 import styles from './Styles';
 import moment from 'moment';
-import I18n from 'react-native-i18n';
 
 
 
 const NewsDetails = () => {
   const route = useRoute()
   const navigation = useNavigation()
-
   const demoNews = {
     "source": {
       "id": null,
@@ -45,14 +33,14 @@ const NewsDetails = () => {
     "publishedAt": "2020-04-19T14:41:24Z",
     "content": "Holding the Tokyo Olympics any time before a vaccine is found will be “very unrealistic,” according to a leading global health expert. Professor Devi Sridhar said that the development of the vaccine will be key to when the Olympics can be held.\r\nSridhar, howe… [+1886 chars]"
   }
-  const [valid, setValid] = useState(true)
-  const [loading, setLoading] = useState(true)
   const [newsDetailsData, setNewsDetailsData] = useState(demoNews)   //route.params?.item
   const { colors } = useTheme();
   // ----------------------------------------------------------------
+
   useEffect(() => {
-    setNewsDetailsData(route.params?.item?route.params?.item:demoNews)
+    setNewsDetailsData(route.params?.item ? route.params?.item : demoNews)
   }, [])
+
   return (
     <SafeAreaView
       style={{
@@ -61,14 +49,14 @@ const NewsDetails = () => {
         backgroundColor: colors.card,
       }}>
       <MainHeader
-        leftAction={() => {  navigation.navigate('MainScreen'); }}
+        leftAction={() => navigation.navigate('MainScreen')}
         img={icons?.back}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          width:'90%',
-          alignSelf:'center'
+          width: '90%',
+          alignSelf: 'center'
         }}
       >
         <View style={{ ...styles.row_between }}>
@@ -107,13 +95,11 @@ const NewsDetails = () => {
         </View>
         <View>
           <Image
-            source={{ uri: newsDetailsData?.urlToImage }}
+            source={newsDetailsData?.urlToImage ?
+              { uri: newsDetailsData?.urlToImage }
+              : { uri: newsDetailsData?.image }}
             style={{
-              width: '100%',
-              alignSelf: 'center',
-              height: SIZES.height / 3,
-              backgroundColor: 'red',
-              borderRadius: SIZES?.radius
+              ...styles?.newsImageDetails
             }}
           />
         </View>
@@ -130,8 +116,6 @@ const NewsDetails = () => {
           ...FONTS?.body3,
           marginVertical: SIZES.padding,
           color: colors.text
-
-
         }}>
           {newsDetailsData?.description}
         </Text>

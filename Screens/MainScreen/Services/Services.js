@@ -1,31 +1,30 @@
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { apiKey, BaseURL } from "../../../constants/API"
 
 
-const getNews = () => {
+const getNews = (page) => {
     return new Promise((resolve, reject) => {
-        // `${BaseURL}top-headlines?token=${apiKey}`
-        fetch(`${BaseURL}/top-headlines/category/health/in.json`, {
-            method: 'GET',
-            headers: {
-                "Content-Type": 'application/json',
-            },
-        }).then((response) => response.json())
-            .then((responseJson) => {
-                console.log("getCats", responseJson)
-                resolve(responseJson.articles)
-                // if(responseJson?.status=='ok'){
-                //     resolve(responseJson.articles)
-                // }else{
-                //     resolve([])
-                // }
-            })
-
-
+        AsyncStorage.getItem('lang').then(lang => {
+            let Url = `${BaseURL}top-headlines?lang=${lang}&page=${page}&max=10&token=${apiKey}`
+            console.log({ Url })
+            fetch(Url, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": 'application/json',
+                },
+            }).then((response) => response.json())
+                .then((responseJson) => {
+                    console.log("getNews", responseJson)
+                    resolve(responseJson.articles)
+                })
+        })
     })
 }
 const SearchFunction = (txt) => {
     return new Promise((resolve, reject) => {
-        fetch(`${BaseURL}search?q=${txt}&token=${apiKey}`, {
+        let Url = `${BaseURL}search?q=${txt}&token=${apiKey}`
+        console.log({ Url })
+        fetch(Url, {
             method: 'GET',
             headers: {
                 "Content-Type": 'application/json',
@@ -35,16 +34,10 @@ const SearchFunction = (txt) => {
                 console.log("SearchFunction", responseJson)
                 if (responseJson.articles) {
                     resolve(responseJson.articles)
-
                 }
                 else {
                     resolve([])
                 }
-                // if(responseJson?.status=='ok'){
-                //     resolve(responseJson.articles)
-                // }else{
-                //     resolve([])
-                // }
             })
 
 

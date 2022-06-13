@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -16,7 +9,15 @@ import {
 } from 'react-native';
 import { images, SIZES } from '../../constants';
 import I18n from 'react-native-i18n';
+import en from '../../Localization/en';
+import de from '../../Localization/de';
 
+I18n.fallbacks = true;
+
+I18n.translations = {
+  en,
+  de
+};
 
 const Splash = () => {
   const navigation = useNavigation()
@@ -24,7 +25,7 @@ const Splash = () => {
     setTimeout(() => {
       AsyncStorage.getItem('lang').then(lang => {
         console.log({ lang })
-        if (lang) {
+        if (lang!=null) {
           I18n.locale = lang;
         } else {
           AsyncStorage.setItem('lang', 'en')

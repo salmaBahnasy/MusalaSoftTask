@@ -1,58 +1,52 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
-import { useNavigation, useTheme } from '@react-navigation/native';
+
 import React, { useEffect, useState } from 'react';
+import { useTheme } from '@react-navigation/native';
 import {
   SafeAreaView,
   Text,
   FlatList,
-  TouchableOpacity,
-  Image,
   View,
   RefreshControl
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import { COLORS, FONTS, icons, SIZES } from '../../constants';
+import I18n from 'react-native-i18n';
+
+// -------------------------------------------------------
+import { COLORS,icons, SIZES } from '../../constants';
 import EmptyView from '../UI/EmptyView';
 import { getNews, SearchFunction } from './Services/Services';
 import styles from './Styles';
-import I18n from '../../Localization/i18n';
 import NewsCard from '../UI/NewsCard';
+import SearchView from '../UI/SearchView';
 
 
 
 
 const MainScreen = () => {
-  const navigation = useNavigation()
   const [news, setNews] = useState([])
-  const [valid, setValid] = useState(true)
+  const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
   const { colors } = useTheme();
 
   useEffect(() => {
     if (loading) {
-      GetNews()
+      GetNews(page)
     }
 
   }, [])
-  const GetNews = () => {
-    getNews().then(res => {
+  const GetNews = (Page:number) => {
+    getNews(Page).then(res => {
       console.log({ res })
       if (res) {
-        setNews(res)
+        Page == 1 ? setNews(res) : setNews(news.concat(res))
+        setPage(Page + 1)
       } else {
         setNews([])
       }
       setLoading(false)
     })
   }
-  const searchFunction = (search: any) => {
+  const searchFunction = (search: string) => {
     SearchFunction(search).then(res => {
       console.log({ res })
       setNews(res)
@@ -90,7 +84,7 @@ const MainScreen = () => {
   //   }
   // }
   // ----------------------------------------------------------------
-  function SearchView() {
+  function _SearchView() {
     return <View style={{ backgroundColor: colors.card }}>
       <Text
         style={{
@@ -99,28 +93,18 @@ const MainScreen = () => {
         }}>
         {I18n.t('TOPNEWS')}
       </Text>
-      <View
-        style={{
-          ...styles?.searchRow,
-          // backgroundColor:colors.card
-        }}>
-        <Image
-          source={icons?.search}
-          style={{ ...styles?.smallIcon }}
-        />
-        <TextInput
-          style={{ color: '#333', height: 50 }}
-          placeholder={I18n.t('Search')}
-          onChangeText={(val) => {
-            if (val != '') {
-              searchFunction(val)
-              // manualSearch(val)
-            } else {
-              GetNews()
-            }
-          }}
-        />
-      </View>
+      <SearchView
+        onChangeText={(val: string) => {
+          if (val != '') {
+            searchFunction(val)
+            // manualSearch(val)
+          } else {
+            setPage(1)
+            GetNews()
+          }
+        }}
+      />
+
 
     </View>
   }
@@ -150,10 +134,12 @@ const MainScreen = () => {
             }}
           />
         }}
+        onEndReachedThreshold={0.5}
+        onEndReached={()=>{GetNews(page)}}
         refreshControl={<RefreshControl
           enabled={true}
           refreshing={loading}
-          onRefresh={() => GetNews()} />}
+          onRefresh={() => GetNews(1)} />}
         showsVerticalScrollIndicator={false}
 
       />
@@ -169,7 +155,7 @@ const MainScreen = () => {
         style={{
           ...styles?.MainView
         }}>
-        {SearchView()}
+        {_SearchView()}
         {newsView()}
       </View>
     </SafeAreaView>

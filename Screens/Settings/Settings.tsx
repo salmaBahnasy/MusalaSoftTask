@@ -1,15 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import RNRestart from 'react-native-restart'; // Import package from node modules
-
 import {
   Linking,
   SafeAreaView,
@@ -19,12 +11,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import I18n from 'react-native-i18n';
+
+// -------------------------------------------------------------------
 import { FONTS, SIZES } from '../../constants';
-import I18n from '../../Localization/i18n';
 import { EventRegister } from 'react-native-event-listeners'
 import { useTheme } from '@react-navigation/native';
 
-const MainScreenURL = "demo://app/newsDetails/1"
+const MainScreenURL = "demo://app/home"
 
 const Settings = () => {
   const [isEnabled, setisEnabled] = useState()
@@ -33,6 +27,7 @@ const Settings = () => {
 
   useEffect(() => {
     AsyncStorage.getItem('lang').then(res => {
+      console.log("lang-->", res)
       if (res == 'en') {
         setisEnabled(true)
       } else {
@@ -49,7 +44,7 @@ const Settings = () => {
     })
   }, [])
 
-  const changeLanguage = (lang:string, enable:boolean) => {
+  const changeLanguage = (lang: string, enable: boolean) => {
     AsyncStorage.setItem('lang', lang, () => {
       setisEnabled(!enable)
       I18n.locale = 'bul'
@@ -59,26 +54,32 @@ const Settings = () => {
   }
 
   return (
-    <SafeAreaView style={{ ...styles?.container,backgroundColor:colors.card  }}>
+    <SafeAreaView
+      style={{
+        ...styles?.container,
+        backgroundColor: colors.card
+      }}>
 
       <TouchableOpacity
         onPress={() => {
-          changeLanguage(isEnabled ? 'bul' : 'en', isEnabled)
+          changeLanguage(isEnabled ? 'de' : 'en', isEnabled)
         }}
-        style={{ ...styles?.row}}>
-        <Text style={{
-          ...FONTS?.body4, color: colors.text
-        }}>{I18n.t('language')}  {isEnabled ? 'en' : 'bul'}</Text>
+        style={{ ...styles?.row }}>
+        <Text
+          style={{
+            ...FONTS?.body4,
+            color: colors.text
+          }}>
+          {I18n.t('language')}  {isEnabled ? 'English' : 'German'}
+        </Text>
         <Switch
-          // trackColor={{ false: "#767577", true: "#81b0ff" }}
-          // thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-          // ios_backgroundColor="#3e3e3e"
           onValueChange={() => {
-            changeLanguage(isEnabled ? 'bul' : 'en', isEnabled)
+            changeLanguage(isEnabled ? 'de' : 'en', isEnabled)
           }}
           value={isEnabled}
         />
       </TouchableOpacity>
+      {/* --------------------------end change Language Feature------------------------ */}
       <View style={{ ...styles?.row }}>
         <Text style={{
           ...FONTS?.body4, color: colors.text
@@ -93,13 +94,14 @@ const Settings = () => {
           value={darkMode}
         />
       </View>
-      <Text 
-      style={{color: colors.text}}
-      onPress={() => {
-        // alert("press")
-        console.log("MainScreenURL",MainScreenURL)
-        Linking.openURL(MainScreenURL)
-      }}>MainScreenURL----:-{MainScreenURL}</Text>
+      {/* ---------------------------------end Dark Mode --------------------------- */}
+      <Text
+        style={{ color: colors.text }}
+        onPress={() => {
+          console.log("MainScreenURL", MainScreenURL)
+          Linking.openURL(`${MainScreenURL}`)
+        }}>MainScreenURL----:-{MainScreenURL}</Text>
+        {/* --------------------------------------------------------- */}
     </SafeAreaView>
   );
 };
