@@ -112,12 +112,12 @@ const Settings = () => {
       {/* --------------------------end change Language Feature------------------------ */}
       {DarkModeView()}
       {/* ---------------------------------end Dark Mode --------------------------- */}
-      <Text
+      {/* <Text
         style={{ color: colors.text }}
         onPress={() => {
           console.log("MainScreenURL", MainScreenURL)
           Linking.openURL(`${MainScreenURL}`)
-        }}>MainScreenURL----:-{MainScreenURL}</Text>
+        }}>MainScreenURL----:-{MainScreenURL}</Text> */}
       {/* --------------------------------------------------------- */}
     </SafeAreaView>
   );
