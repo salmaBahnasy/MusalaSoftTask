@@ -7,8 +7,9 @@ export default {
   mode:'mode',
   TOPNEWS:'TOP NEWS',
   Search:'Search',
-  darkMode:'Dark Mode'
-
+  darkMode:'Dark Mode',
+  clanguage:'Current Language',
+  noNews:'there is no news'
 
 
 

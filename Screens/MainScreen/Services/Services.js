@@ -5,7 +5,7 @@ import { apiKey, BaseURL } from "../../../constants/API"
 const getNews = (page) => {
     return new Promise((resolve, reject) => {
         AsyncStorage.getItem('lang').then(lang => {
-            let Url = `${BaseURL}top-headlines?lang=${lang}&page=${page}&max=10&token=${apiKey}`
+            let Url = `${BaseURL}top-headlines?lang=${lang?lang:'en'}&page=${page}&max=10&token=${apiKey}`
             console.log({ Url })
             fetch(Url, {
                 method: 'GET',

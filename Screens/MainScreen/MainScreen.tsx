@@ -126,7 +126,7 @@ const MainScreen = () => {
         ListEmptyComponent={() => {
           return <EmptyView
             img={icons?.news}
-            title={'there is no news'}
+            title={I18n.t('noNews')}
             imgstyle={{ marginTop: 100 }}
             txtstyle={{
               color: COLORS?.darkgray,

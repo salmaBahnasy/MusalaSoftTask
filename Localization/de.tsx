@@ -17,5 +17,8 @@ export default {
     mode:'Modus',
     TOPNEWS:'TOP-NACHRICHTEN',
     Search:'Suche',
-    darkMode:'dunkler Modus'
+    darkMode:'dunkler Modus',
+    clanguage:'aktuelle Sprache',
+    noNews:"es gibt keine Neuigkeiten"
+
 };

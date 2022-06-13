@@ -21,18 +21,20 @@ import { useTheme } from '@react-navigation/native';
 const MainScreenURL = "demo://app/home"
 
 const Settings = () => {
-  const [isEnabled, setisEnabled] = useState()
+  const [isEnabled, setisEnabled] = useState(false)
   const [darkMode, setDarkMode] = useState()
+  const [cLang, setCLang] = useState('')
   const { colors } = useTheme();
 
   useEffect(() => {
     AsyncStorage.getItem('lang').then(res => {
       console.log("lang-->", res)
-      if (res == 'en') {
-        setisEnabled(true)
-      } else {
-        setisEnabled(false)
-      }
+      setCLang(res)
+      // if (res == 'en') {
+      //   setisEnabled(true)
+      // } else {
+      //   setisEnabled(false)
+      // }
 
     })
     AsyncStorage.getItem('isDark').then(res => {
@@ -53,33 +55,37 @@ const Settings = () => {
     })
   }
 
-  return (
-    <SafeAreaView
-      style={{
-        ...styles?.container,
-        backgroundColor: colors.card
-      }}>
 
-      <TouchableOpacity
-        onPress={() => {
-          changeLanguage(isEnabled ? 'de' : 'en', isEnabled)
+  function ChangeLanguageView() {
+    return (<TouchableOpacity
+      onPress={() => {
+        changeLanguage(cLang == 'en' ? 'de' : 'en', isEnabled)
+      }}
+      style={{ ...styles?.row, justifyContent: 'space-around' }}>
+      <Text
+        style={{
+          ...FONTS?.body4,
+          color: colors.text
+        }}>
+        {I18n.t('clanguage')}  {cLang == 'en' ? 'English' : 'German'}
+      </Text>
+      <Switch
+        onValueChange={() => {
+          changeLanguage(cLang == 'en' ? 'de' : 'en', isEnabled)
         }}
-        style={{ ...styles?.row }}>
-        <Text
-          style={{
-            ...FONTS?.body4,
-            color: colors.text
-          }}>
-          {I18n.t('language')}  {isEnabled ? 'English' : 'German'}
-        </Text>
-        <Switch
-          onValueChange={() => {
-            changeLanguage(isEnabled ? 'de' : 'en', isEnabled)
-          }}
-          value={isEnabled}
-        />
-      </TouchableOpacity>
-      {/* --------------------------end change Language Feature------------------------ */}
+        value={isEnabled}
+      />
+      <Text
+        style={{
+          ...FONTS?.body4,
+          color: colors.text
+        }}>
+        {cLang == 'de' ? 'English' : 'German'}
+      </Text>
+    </TouchableOpacity>)
+  }
+  function DarkModeView() {
+    return (
       <View style={{ ...styles?.row }}>
         <Text style={{
           ...FONTS?.body4, color: colors.text
@@ -94,6 +100,17 @@ const Settings = () => {
           value={darkMode}
         />
       </View>
+    )
+  }
+  return (
+    <SafeAreaView
+      style={{
+        ...styles?.container,
+        backgroundColor: colors.card
+      }}>
+      {ChangeLanguageView()}
+      {/* --------------------------end change Language Feature------------------------ */}
+      {DarkModeView()}
       {/* ---------------------------------end Dark Mode --------------------------- */}
       <Text
         style={{ color: colors.text }}
@@ -101,7 +118,7 @@ const Settings = () => {
           console.log("MainScreenURL", MainScreenURL)
           Linking.openURL(`${MainScreenURL}`)
         }}>MainScreenURL----:-{MainScreenURL}</Text>
-        {/* --------------------------------------------------------- */}
+      {/* --------------------------------------------------------- */}
     </SafeAreaView>
   );
 };
