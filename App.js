@@ -7,7 +7,7 @@ import Tabs from './navigation/tabs';
 import Splash from './Screens/Splash/Splash';
 import NewsDetails from './Screens/NewsDetails/NewsDetails';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import linking from './Linking';
+import linking from './Linking';
 
 
 const theme = {
@@ -19,8 +19,8 @@ const theme = {
 }
 const config={
   screens:{
-    MainScreen:'News',
-    NewsDetails:'NewsDetails'
+    MainScreen:'home',
+    NewsDetails:'newsDetails'
   }
 }
 const Stack = createStackNavigator();
@@ -49,10 +49,11 @@ const App = () => {
   }, [])
   return (
     <NavigationContainer
-      linking={{
-        prefixes: ["demo://app"],
-        config,
-      }}
+      // linking={{
+      //   prefixes: ["demo://app"],
+      //   config,
+      // }}
+      linking={linking}
       theme={AppTheme}>
       <Stack.Navigator
         screenOptions={{

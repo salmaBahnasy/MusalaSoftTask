@@ -23,6 +23,7 @@ import EmptyView from '../UI/EmptyView';
 import { getNews, SearchFunction } from './Services/Services';
 import styles from './Styles';
 import I18n from '../../Localization/i18n';
+import NewsCard from '../UI/NewsCard';
 
 
 
@@ -57,37 +58,37 @@ const MainScreen = () => {
       setNews(res)
     })
   }
-  
-  const manualSearch = (search: string) => {
-    let arr: React.SetStateAction<never[]> = [];
-    let i;
-    let n;
-    console.log('search function')
-    for (i = 0; i < news.length; i++) {
 
-      console.log("index1", i)
+  // const manualSearch = (search: string) => {
+  //   let arr: React.SetStateAction<never[]> = [];
+  //   let i;
+  //   let n;
+  //   console.log('search function')
+  //   for (i = 0; i < news.length; i++) {
 
-      if (news[i]?.title?.toLowerCase().includes(search.toLowerCase()) ||
-        news[i]?.description?.toLowerCase().includes(search.toLowerCase())) {
-        console.log("index", i)
-        console.log("true", news[i])
-        let x = news[i]
-        arr.push(x)
-      } else {
-        n = false
-        // console.log("false")
-      }
-      console.log({ arr })
-      if (arr?.length > 0) {
-        setNews(arr)
-      } else if (arr?.length == 0 && search != '') {
-        setNews([])
+  //     console.log("index1", i)
 
-      } else {
-        GetNews()
-      }
-    }
-  }
+  //     if (news[i]?.title?.toLowerCase().includes(search.toLowerCase()) ||
+  //       news[i]?.description?.toLowerCase().includes(search.toLowerCase())) {
+  //       console.log("index", i)
+  //       console.log("true", news[i])
+  //       let x = news[i]
+  //       arr.push(x)
+  //     } else {
+  //       n = false
+  //       // console.log("false")
+  //     }
+  //     console.log({ arr })
+  //     if (arr?.length > 0) {
+  //       setNews(arr)
+  //     } else if (arr?.length == 0 && search != '') {
+  //       setNews([])
+
+  //     } else {
+  //       GetNews()
+  //     }
+  //   }
+  // }
   // ----------------------------------------------------------------
   function SearchView() {
     return <View style={{ backgroundColor: colors.card }}>
@@ -108,12 +109,12 @@ const MainScreen = () => {
           style={{ ...styles?.smallIcon }}
         />
         <TextInput
-          style={{ color: '#333' ,height:50}}
+          style={{ color: '#333', height: 50 }}
           placeholder={I18n.t('Search')}
           onChangeText={(val) => {
             if (val != '') {
-              // searchFunction(val)
-              manualSearch(val)
+              searchFunction(val)
+              // manualSearch(val)
             } else {
               GetNews()
             }
@@ -131,60 +132,7 @@ const MainScreen = () => {
     };
     const renderItem: React.FC<news> = ({ item, index }) => {
       return (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('NewsDetails', {
-              item
-            })
-          }}
-          key={`news-${index}`}
-          style={{
-            marginVertical: 5,
-            padding: SIZES?.padding,
-            backgroundColor: colors?.card
-          }}
-        >
-          <View style={{
-            flexDirection: 'row',
-            backgroundColor: colors?.card
-          }}>
-            <View
-              style={{
-                flex: 2,
-                paddingRight: SIZES?.padding,
-                backgroundColor: colors?.card
-
-              }}>
-              <Text
-                style={{
-                  ...styles?.newsTitle,
-                  color: colors.text
-                }}
-                numberOfLines={2}>
-                {item.title}
-              </Text>
-              <Text style={{
-                ...FONTS?.body4,
-                color: colors.text
-
-              }} numberOfLines={4}>
-                {item.description}
-              </Text>
-            </View>
-            <View
-              style={{ flex: 1, backgroundColor: colors.card }}
-            >
-              <Image
-                // onError={() => { setValid(false) }}
-                source={valid ? { uri: item?.urlToImage } : icons?.placeholder}
-                style={[{ ...styles?.newsImage }, valid == false && { tintColor: COLORS?.gray }]}
-                defaultSource={icons?.placeholder}
-              />
-            </View>
-          </View>
-
-
-        </TouchableOpacity>
+        <NewsCard item={item} index={index} />
       )
     }
     return (
@@ -215,11 +163,11 @@ const MainScreen = () => {
     <SafeAreaView
       style={{
         padding: SIZES?.padding,
-        paddingTop:SIZES.padding*2
+        paddingTop: SIZES.padding * 2
       }}>
       <View
         style={{
-       ...styles?.MainView
+          ...styles?.MainView
         }}>
         {SearchView()}
         {newsView()}

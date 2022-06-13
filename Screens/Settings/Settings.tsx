@@ -24,7 +24,7 @@ import I18n from '../../Localization/i18n';
 import { EventRegister } from 'react-native-event-listeners'
 import { useTheme } from '@react-navigation/native';
 
-const MainScreenURL = "demo://app/home"
+const MainScreenURL = "demo://app/newsDetails/1"
 
 const Settings = () => {
   const [isEnabled, setisEnabled] = useState()
@@ -93,13 +93,13 @@ const Settings = () => {
           value={darkMode}
         />
       </View>
-      {/* <Text 
+      <Text 
       style={{color: colors.text}}
       onPress={() => {
         // alert("press")
         console.log("MainScreenURL",MainScreenURL)
         Linking.openURL(MainScreenURL)
-      }}>MainScreenURL----:-{MainScreenURL}</Text> */}
+      }}>MainScreenURL----:-{MainScreenURL}</Text>
     </SafeAreaView>
   );
 };
